@@ -1,0 +1,11 @@
+[submodule "Proteomics"]
+	path = Proteomics
+	url = https://bitbucket.org/szkabel/pacaproteomics.git
+	branch = publication-2021
+[submodule "Registrations"]
+	path = Registrations
+	url = https://bitbucket.org/szkabel/pacaregistrations.git
+	branch = publication-2021
+[submodule "ThirdParty/py_alpha_amd_release"]
+	path = ThirdParty/py_alpha_amd_release
+	url = https://github.com/johanofverstedt/py_alpha_amd_release.git
