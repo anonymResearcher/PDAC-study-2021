@@ -1,7 +1,7 @@
 ## General information ##
 
 In this repository we provide a collection of scripts that were used for conducting data analysis for a
-Pancreatic Ductal Adenocarcinoma study in 2021.
+Pancreatic Ductal Adenocarcinoma study in 2022.
 
 ## Downloading the repository ##
 
@@ -9,22 +9,21 @@ The repository is structured into submodules, hence we recommend using git to ac
 
 Use the git command
 
->     git clone https://github.com/anonymResearcher/PDAC-study-2021.git --recurse-submodules  
+>     git clone https://github.com/anonymResearcher/PDAC-study-2022.git --recurse-submodules  
 
 to check out all the related repositories instantly.
 
 ## Workflows ##
 
-The repository is structured into 3 independent workflows to perform the following tasks:
+The repository is structured into 2 independent workflows to perform the following tasks:
 
 * Proteomic data analysis
-* Splicing analysis
 * TMA image registration and quantification
 
 Further information on how to run these workflows can be found below in this readme.
 
 ## Environment ##
-Our data analysis was conducted with R v4.0.3 and Matlab R2018b on a regular 64bit laptop with Windows10 operating system. The proteomic and splicing workflows were also tested on Mac, 
+Our data analysis was conducted with R v4.0.3 and Matlab R2018b on a regular 64bit laptop with Windows10 operating system. The proteomic workflow was also tested on Mac, 
 and the TMA image registration on all images was run on clusters for faster processing.
 
 To install R and its most frequently used code editor RStudio follow the general guidelines of these software found at:	
@@ -97,62 +96,6 @@ rootResultPath = "/path_to_my_result_directory"
 
 The entry point for the proteomic data analysis is the `Proteomics/R/pipe.R` file. Run this script to reproduce our findings by sourcing it in R (this can be done e.g. by typing in
 `source('thePathToThisRepository/Proteomics/R/pipe.R')` to the R console window.
-
-## Splicing analysis ##
-
-The splicing analysis workflow involves identifying, annotating (determining whether it is found in reference genome or not) and quantifying splice variants in The Cancer Genome Atlas (TCGA) samples. 
-After the quantification the covariates are subject to survival analysis.
-
-### Branches ###
-
-The splicing analysis can be performed in 2 different ways called branches: the `PSI` branch and the `Count` branch. Both branches quantify splice variants (i.e. a short sequence of exons), but in a different way: 
-the `PSI` branch only relies on PSI (percent spliced in) values, and only takes into account if a splice variant was detected or not in a sample. 
-On the other hand the `Count` branch takes into account the actual number of reads supporting the splice variant in the sample. The branches to be run can be specificied in the `Proteomics/R/splice/splice_runAnalyses.R` script.
-
-### Source data ###
-
-By default the splicing analysis uses the same working and output directory as the proteomic workflow, however the required files are different (and independent). 
-Create a working directory and a subdirectory named `Data` in it (if you haven't done it yet for the proteomic workflow). All the folders specified below need to be placed in 
-a subdirectory of the `Data` folder titled: `j.ccell.2018.07.001`. Note, that the size of the files required for this workflow is approximately 0.5 TB (~485 GB).
-
-1. Create a folder titled `0_tcga` and download the following files into it from https://gdc.cancer.gov/about-data/publications/PanCanAtlas-Splicing-2018. 
-   Note that in case you wish to run the PSI branch, then you should download the 
-   files with the same name except for the extension which should be `.txt.gz` in that case. The hdf5 files are needed only for the Count branch.
-	- merge_graphs_alt_3prime_C2.counts.hdf5
-	- merge_graphs_alt_5prime_C2.counts.hdf5
-	- merge_graphs_exon_skip_C2.counts.hdf5
-	- merge_graphs_intron_retention_C2.counts.hdf5
-	- merge_graphs_mutex_exons_C2.counts.hdf5
-2. Create a folder titled `1_tcga` and download the following files into it from https://gdc.cancer.gov/about-data/publications/PanCanAtlas-Splicing-2018. 
-   Similarly to point 1. only the `.txt.gz` files are needed for the PSI branch.
-	- gtex_merge_graphs_alt_3prime_C2.counts.hdf5
-	- gtex_merge_graphs_alt_5prime_C2.counts.hdf5
-	- gtex_merge_graphs_exon_skip_C2.counts.hdf5
-	- gtex_merge_graphs_intron_retention_C2.counts.hdf5
-	- gtex_merge_graphs_mutex_exons_C2.counts.hdf5
-3. Create a folder titled `2_sampleInfo` and download the following file to it from https://gdc.cancer.gov/about-data/publications/PanCanAtlas-Splicing-2018 :
-	- sample_whitelist.txt
-4. Create a folder titled `4_other` and download the following files to it from https://gdc.cancer.gov/about-data/publications/PanCanAtlas-Splicing-2018 :
-	- expression_counts.whitelisted.hdf5
-	- expression_counts.whitelisted.libsize.tsv
-5. Create a folder titled `5_combined` and download the following files to it from https://gdc.cancer.gov/about-data/publications/PanCanAtlas-Splicing-2018 :
-	- merge_graphs_alt_3prime_C2.gff3.gz
-	- merge_graphs_alt_5prime_C2.gff3.gz
-	- merge_graphs_exon_skip_C2.gff3.gz
-	- merge_graphs_intron_retention_C2.gff3.gz
-	- merge_graphs_mutex_exons_C2.gff3.gz
-6. Create a folder named `annotations` and fill it with the following content:
-	- TCGA annotations: create a directory titled `tcga` and download the following files from https://portal.gdc.cancer.gov/projects/TCGA-PAAD :
-		* Download the Biospecimen data in tsv format and extract all the tsv files into a directory titled `biospecimen.cases_selection.2021-03-09`
-		* Download the Clinial data in tsv format and extract all the tsv files into a directory titled `clinical.project-TCGA-PAAD.2021-06-17`
-	- GTEX sample IDs categorized by tissues: create a directory titled `sample_lists_gtex` and download the .txt files 
-	  from https://github.com/ratschlab/pancanatlas_code_public/tree/master/alt_splice/annotation/sample_lists_gtex .
-	  (in fact, for reproducing our paper's result it is enough to download the Pancreas.txt)
-	  
-### Configuration and run ###
-
-The configuration of the splicing workflow happens in the `Proteomics/R/splice/splice_runAnalyses.R` script, which is also the entry point of this workflow. 
-Additionally, remember to specify the working and output directory location in `Proteomics/R/init/init_vars.R`.
 
 ## TMA image registration ##
 
