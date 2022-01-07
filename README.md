@@ -41,6 +41,9 @@ We are utilizing several R libraries, each of which can be acquired from the fol
 - CRAN, using the standard `install.packages()` function of R *OR*
 - Bioconductor using the `BiocManager::install()` function. This requires first installing BiocManager with `install.packages("BiocManager")`.
 
+The list of R packages:
+`beepr, biomaRT, cellranger, ComplexHeatmap, data.table, DT, dtplyr, factoextra, furrr, GFA, GGally, ggExtra, ggpmisc, ggraph, gridExtra, htmltools, janitor, lemon, lubridate, magrittr, multidplyr, parallel, pbmcapply, plotly, readxl, scales, survival, survminer, tictoc, tidygraph, tidyverse, VennDiagram`
+
 ## Proteomic data analysis ##
 
 The proteomic data analysis workflow includes the normalization of protein values (batch-effect correction by ComBat, housekeeping normalization), 
@@ -94,8 +97,8 @@ rootResultPath = "/path_to_my_result_directory"
 
 ### Running the workflow ###
 
-The entry point for the proteomic data analysis is the `Proteomics/R/pipe.R` file. Run this script to reproduce our findings by sourcing it in R (this can be done e.g. by typing in
-`source('thePathToThisRepository/Proteomics/R/pipe.R')` to the R console window.
+The entry point for the proteomic data analysis is the `Proteomics/R/pipe.R` file. Run this script to reproduce our findings by typing in
+`source('path_to_this_repository/Proteomics/R/pipe.R', chdir = T)` to the R console window (Note: remember to specify the location on your own machine).
 
 ## TMA image registration ##
 
